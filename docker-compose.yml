@@ -1,0 +1,34 @@
+version: '3'
+services:
+  # Frontend service for React Native
+  frontend:
+    build:
+      context: ./path/to/your/react-native-app
+    ports:
+      - "19000:19000"
+      - "19001:19001"
+      - "19002:19002"
+    stdin_open: true
+    tty: true
+
+  # Backend service for Node.js/Express
+  backend:
+    build:
+      context: ./path/to/your/node-express-app
+    ports:
+      - "3000:3000"
+    depends_on:
+      - mongodb
+    stdin_open: true
+    tty: true
+
+  # MongoDB service
+  mongodb:
+    image: mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+
+volumes:
+  mongo-data:
